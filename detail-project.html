@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Project - Resha</title>
+    <link rel="stylesheet" href="detail-project.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="bg-extra"></div>
+
+    <div class="page-wrapper">
+        <header class="detail-header">
+            <a href="Project.html" class="btn-kembali">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="width:18px;"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                KEMBALI
+            </a>
+            
+            <div class="menu-trigger" id="menuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </header>
+
+        <main class="content-container">
+            <h1 id="main-title" class="project-headline">DOKUMENTASI</h1>
+            <div class="bento-grid" id="gallery-container">
+                </div>
+        </main>
+    </div>
+
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="menu-card">
+            <img src="images/logo-maskot.png" class="maskot maskot-left" alt="maskot">
+            <img src="images/logo-maskot.png" class="maskot maskot-right" alt="maskot">
+            
+            <nav class="mobile-nav">
+                <a href="index.html">HOME</a>
+                <a href="Project.html">PROJECT</a>
+                <a href="About.html">ABOUT ME</a>
+                <a href="Contact.html">CONTACT</a>
+            </nav>
+
+            <div class="close-btn-card" id="closeBtn">
+                <span>&times;</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            // 1. Logic Ambil Data & Render Gallery
+            const params = new URLSearchParams(window.location.search);
+            const gallery = JSON.parse(localStorage.getItem('selectedGallery') || "[]");
+            const title = params.get('name') || "DOKUMENTASI";
+            document.getElementById('main-title').innerText = title.toUpperCase();
+            
+            const container = document.getElementById('gallery-container');
+            if (gallery.length > 0) {
+                container.innerHTML = gallery.map((foto, index) => {
+                    // Tambah class 'reveal' untuk animasi scroll
+                    return `<div class="grid-item reveal"><img src="${foto}" alt="Gallery ${index}"></div>`;
+                }).join('');
+                
+                // Jalankan fungsi animasi setelah render
+                initScrollReveal();
+            } else {
+                container.innerHTML = "<p class='empty-msg'>Belum ada foto tambahan.</p>";
+            }
+
+            // 2. Intersection Observer (Scroll Animation)
+            function initScrollReveal() {
+                const items = document.querySelectorAll('.reveal');
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('active');
+                        }
+                    });
+                }, { threshold: 0.15 });
+
+                items.forEach(item => observer.observe(item));
+            }
+
+            // 3. Logic Pop-up Menu
+            const menuBtn = document.getElementById('menuBtn');
+            const mobileOverlay = document.getElementById('mobile-menu');
+            const closeBtn = document.getElementById('closeBtn');
+
+            menuBtn.onclick = () => { mobileOverlay.classList.add('active'); };
+            closeBtn.onclick = () => { mobileOverlay.classList.remove('active'); };
+            mobileOverlay.onclick = (e) => {
+                if (e.target === mobileOverlay) mobileOverlay.classList.remove('active');
+            };
+        }
+    </script>
+</body>
+</html>

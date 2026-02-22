@@ -1,0 +1,306 @@
+/* --- VARIABLE & RESET --- */
+:root {
+    --bg-blue: #63c9e6;
+    --dark-blue: #3a8eb0;
+    --card-blue: #3498db;
+    --accent-blue: #9df1f1;
+    --white: #ffffff;
+    --text-dark: #2c3e50;
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Montserrat', sans-serif; 
+}
+
+body {
+    background: var(--bg-blue);
+    color: var(--white);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* --- DEKORASI BACKGROUND --- */
+.bg-shape { position: fixed; z-index: -1; opacity: 0.5; }
+.shape-circle { width: 300px; height: 300px; background: var(--dark-blue); border-radius: 50%; bottom: -100px; right: -50px; }
+.shape-square { width: 200px; height: 200px; background: var(--accent-blue); border-radius: 40px; top: -50px; left: -50px; transform: rotate(15deg); }
+
+/* --- OVERLAY MENU POP UP --- */
+.mobile-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+    z-index: 5000;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden; transition: all 0.4s ease;
+}
+
+.mobile-overlay.active { opacity: 1; visibility: visible; }
+
+.overlay-card {
+    background: var(--accent-blue);
+    width: 85%; max-width: 450px; padding: 60px 20px;
+    border-radius: 40px; position: relative; text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    transform: scale(0.7) translateY(50px); opacity: 0;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.mobile-overlay.active .overlay-card { transform: scale(1) translateY(0); opacity: 1; }
+
+.overlay-logo { position: absolute; width: 45px; top: 20px; }
+.overlay-logo.left { left: 20px; }
+.overlay-logo.right { right: 20px; }
+
+.mobile-links { list-style: none; padding: 0; }
+.mobile-links li { 
+    margin: 25px 0; 
+    opacity: 0; 
+    transform: translateY(20px); 
+    transition: all 0.4s ease; 
+}
+
+.mobile-overlay.active .mobile-links li { opacity: 1; transform: translateY(0); }
+.mobile-overlay.active .mobile-links li:nth-child(1) { transition-delay: 0.3s; }
+.mobile-overlay.active .mobile-links li:nth-child(2) { transition-delay: 0.4s; }
+.mobile-overlay.active .mobile-links li:nth-child(3) { transition-delay: 0.5s; }
+.mobile-overlay.active .mobile-links li:nth-child(4) { transition-delay: 0.6s; }
+
+.mobile-links a {
+    text-decoration: none; color: var(--dark-blue);
+    font-size: 1.8rem; font-weight: 900; transition: 0.3s;
+}
+.mobile-links a:hover, .active-link { color: var(--white); }
+
+.close-menu {
+    position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+    font-size: 2.5rem; color: var(--dark-blue); cursor: pointer; font-weight: bold;
+}
+
+/* --- HERO SECTION --- */
+.project-container { max-width: 1200px; margin: 0 auto; padding: 120px 20px 40px; position: relative; z-index: 1; }
+
+.hero-section { 
+    margin-bottom: 40px; 
+    position: relative; 
+    overflow: hidden; 
+    border-radius: 40px; 
+    height: 450px; 
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15); 
+    border: 5px solid var(--accent-blue); 
+}
+
+.hero-main-wrapper { width: 100%; height: 100%; transition: all 0.6s ease; }
+
+.hero-card { 
+    width: 100%; 
+    height: 100%; 
+    background-size: cover; 
+    background-position: center; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    text-align: center;
+    padding: 20px;
+}
+
+.hero-title { 
+    font-size: clamp(2rem, 8vw, 4rem);
+    font-weight: 900; 
+    letter-spacing: 2px; 
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-category { 
+    font-weight: 700; font-size: 0.9rem; 
+    background: var(--accent-blue); color: var(--dark-blue); 
+    display: inline-block; padding: 5px 15px; border-radius: 20px; margin-bottom: 10px; 
+}
+
+/* --- NAV & BUTTONS --- */
+.top-left-logo { position: fixed; top: 25px; left: 40px; z-index: 3000; }
+.logo-box img { width: 50px; height: auto; }
+.menu-btn { 
+    position: fixed; 
+    top: 40px; 
+    right: 40px; 
+    width: 30px; 
+    height: 22px; /* Gue tambahin tingginya dari 14px ke 22px */
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; /* Ini bakal bagi jarak otomatis antar 3 garis */
+    cursor: pointer; 
+    z-index: 4000; 
+}
+.menu-btn span { 
+    width: 100%; 
+    height: 3px; 
+    background: var(--white); 
+    transition: 0.3s; 
+    border-radius: 5px; 
+}
+.arrow-btn { position: absolute; top: 50%; transform: translateY(-50%); background: var(--accent-blue); color: var(--dark-blue); border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; z-index: 10; transition: 0.3s; }
+.arrow-btn:hover { background: var(--white); transform: translateY(-50%) scale(1.1); }
+.prev { left: 20px; } .next { right: 20px; }
+
+/* --- FILTER & SEARCH --- */
+.search-box { background: var(--white); padding: 12px 25px; border-radius: 15px; flex: 1; display: flex; align-items: center; margin-bottom: 20px; }
+.search-box input { border: none; outline: none; width: 100%; margin-left: 10px; font-weight: 600; color: var(--text-dark); background: transparent; }
+.filter-group { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 30px; }
+.btn-filter { background: var(--dark-blue); border: none; padding: 10px 22px; border-radius: 12px; cursor: pointer; font-weight: 700; color: var(--white); transition: 0.3s; }
+.btn-filter.active, .btn-filter:hover { background: var(--accent-blue); color: var(--dark-blue); }
+
+/* --- PROJECT GRID & CARD (PERBAIKAN SMOOTH) --- */
+.project-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+    gap: 25px; 
+}
+
+.project-card { 
+    height: 350px; 
+    border-radius: 30px; 
+    overflow: hidden; 
+    position: relative; 
+    border: 4px solid transparent; 
+    /* Transisi dibikin spesifik ke transform dan opacity biar gak nabrak */
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+    cursor: pointer;
+    animation: fadeInCard 0.6s ease-out forwards;
+}
+
+@keyframes fadeInCard {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* --- CLIENT LOGO MARQUEE --- */
+.client-section {
+    margin-top: 80px;
+    padding: 40px 0;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 40px;
+}
+
+.client-title {
+    text-align: center;
+    font-weight: 900;
+    color: var(--white);
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+    font-size: 1.2rem;
+}
+
+.marquee {
+    display: flex;
+    overflow: hidden;
+    user-select: none;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.marquee-content {
+    display: flex;
+    gap: 60px; /* Jarak antar logo */
+    animation: scrollRight 20s linear infinite; /* Durasi 20 detik */
+}
+
+.marquee-content img {
+    height: 60px; /* Atur tinggi logo */
+    width: auto;
+    filter: brightness(0) invert(1); /* Bikin logo jadi putih semua biar estetik */
+    opacity: 0.7;
+    transition: 0.3s;
+}
+
+.marquee-content img:hover {
+    filter: none; /* Balik ke warna asli pas di-hover */
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* Animasi Jalan ke Kanan */
+@keyframes scrollRight {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(calc(-50%)); /* Geser setengah panjang container */
+    }
+}
+
+/* Responsif buat HP */
+@media (max-width: 600px) {
+    .marquee-content img { height: 40px; }
+    .marquee-content { gap: 40px; }
+}
+/* Efek Hover yang sekarang dijamin HALUS */
+.project-card:hover { 
+    border-color: var(--accent-blue); 
+    transform: translateY(-15px); 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+.project-card img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    transition: transform 0.6s ease; /* Zoom gambar juga dihalusin */
+}
+
+.project-card:hover img {
+    transform: scale(1.1);
+}
+
+/* --- VIEW ALL / HIDE ALL BUTTON --- */
+.view-all { 
+    display: block; 
+    margin: 40px auto; 
+    background: var(--accent-blue); 
+    border: none; 
+    color: var(--dark-blue); 
+    padding: 15px 45px; 
+    border-radius: 15px; 
+    font-weight: 800; 
+    cursor: pointer; 
+    transition: 0.3s; 
+}
+.view-all:hover { background: var(--white); transform: scale(1.05); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+/* --- FLOATING NAV --- */
+.floating-nav { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 2000; }
+.nav-pill { background: var(--white); padding: 10px 20px; border-radius: 50px; display: flex; align-items: center; gap: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+.nav-links-pill a { text-decoration: none; color: var(--dark-blue); font-size: 0.75rem; font-weight: 800; margin: 0 10px; }
+.home-icon { background: var(--bg-blue); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+@media (max-width: 600px) {
+    .hero-section { height: 350px; }
+    .floating-nav { top: auto; bottom: 20px; width: 90%; }
+}
+
+
+/* Transisi Smooth buat masuk ke halaman detail */
+.detail-container {
+    animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Biar gambar di galeri seragam tingginya */
+.gallery-item {
+    height: 200px;
+    object-fit: cover;
+}

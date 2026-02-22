@@ -1,0 +1,135 @@
+/* --- VARIABLE & BASE --- */
+:root {
+    --bg-blue: #63c9e6;
+    --dark-blue: #3a8eb0;
+    --accent-light: #9df1f1;
+    --white: #ffffff;
+    --glass-border: rgba(255, 255, 255, 0.5);
+    --glass-bg: rgba(255, 255, 255, 0.15);
+}
+
+html { scroll-behavior: smooth; }
+
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background: radial-gradient(circle at top left, var(--bg-blue), var(--dark-blue), #2c6e88);
+    min-height: 100vh; color: var(--white); overflow-x: hidden; padding: 20px; position: relative;
+}
+
+/* --- BACKGROUND DECORATION --- */
+body::before, body::after {
+    content: ""; position: fixed; z-index: -1; filter: blur(60px); animation: floatShape 8s ease-in-out infinite;
+}
+body::before { top: -100px; left: -100px; width: 450px; height: 450px; background: radial-gradient(circle, rgba(157, 241, 241, 0.4) 0%, transparent 70%); }
+body::after { bottom: -50px; right: -50px; width: 300px; height: 300px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; animation-delay: -4s; }
+
+.bg-extra {
+    position: fixed; top: 30%; right: 5%; width: 80px; height: 80px; border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 15px; transform: rotate(45deg); z-index: -1; animation: rotateSlow 20s linear infinite;
+}
+
+@keyframes floatShape { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(30px, 40px); } }
+@keyframes rotateSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* --- HEADER --- */
+.page-wrapper { max-width: 1200px; margin: 0 auto; position: relative; z-index: 10; }
+.detail-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; }
+.btn-kembali {
+    background: rgba(255, 255, 255, 0.9); color: var(--dark-blue); padding: 10px 22px;
+    border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 0.75rem;
+    display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: 0.3s;
+}
+.btn-kembali:hover { transform: translateX(-5px); background: var(--white); }
+
+.menu-trigger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; }
+.menu-trigger span { display: block; width: 28px; height: 4px; background: var(--white); border-radius: 2px; }
+
+/* --- BENTO GRID LAYOUT --- */
+.project-headline { font-size: clamp(2rem, 8vw, 5rem); font-weight: 900; text-align: center; margin: 40px 0; text-transform: uppercase; letter-spacing: -2px; }
+.bento-grid { 
+    display: grid; 
+    grid-template-columns: repeat(2, 1fr); 
+    grid-auto-rows: 180px; 
+    gap: 15px; 
+    padding-bottom: 50px; 
+}
+
+.grid-item { background: var(--glass-bg); border: 2.5px solid var(--glass-border); border-radius: 35px; overflow: hidden; position: relative; transition: 0.5s ease; }
+.grid-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* --- PERBAIKAN LOGIKA LAYOUT BENTO --- */
+
+/* 1. Foto Pertama (Landscape Atas) */
+.grid-item:nth-child(1) { 
+    grid-column: span 2; 
+    grid-row: span 3; 
+} 
+
+/* 2. Dua Foto Portrait (Kiri & Kanan) */
+.grid-item:nth-child(2), 
+.grid-item:nth-child(3) { 
+    grid-row: span 4; 
+} 
+
+/* 3. Foto Tengah (Kotak-kotak standar) */
+/* Pakai span 2 biar agak tinggi dikit tapi tetep kotak */
+.grid-item:nth-child(n+4) { 
+    grid-row: span 2; 
+}
+
+.grid-item:nth-child(10) { 
+    grid-column: span 2 !important; /* Pakai !important biar menang dari aturan urutan */
+    grid-row: span 4 !important;    /* Coba span 3 atau 4 dulu, jangan langsung 10 */
+}
+
+.grid-item:hover { transform: scale(1.02); border-color: var(--white); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+
+/* --- SCROLL REVEAL ANIMATION --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px) scale(0.9);
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* --- FLOATING CARD NAVBAR --- */
+.mobile-menu {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(10px);
+    z-index: 2000; display: flex; justify-content: center; align-items: center;
+    opacity: 0; visibility: hidden; transition: 0.4s;
+}
+.mobile-menu.active { opacity: 1; visibility: visible; }
+
+.menu-card {
+    background: #a1f3f3;
+    width: 90%; max-width: 380px; padding: 60px 20px 40px;
+    border-radius: 50px; position: relative; text-align: center;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+    transform: scale(0.8); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.mobile-menu.active .menu-card { transform: scale(1); }
+
+.maskot { position: absolute; width: 50px; top: 15px; }
+.maskot-left { left: 20px; }
+.maskot-right { right: 20px; }
+
+.mobile-nav { display: flex; flex-direction: column; gap: 15px; }
+.mobile-nav a { color: #3b8eb0; text-decoration: none; font-size: 1.6rem; font-weight: 800; transition: 0.3s; }
+.mobile-nav a:hover { transform: scale(1.1); color: #2c6e88; }
+
+.close-btn-card { margin-top: 30px; font-size: 2.2rem; color: #3b8eb0; cursor: pointer; font-weight: 900; }
+
+/* --- RESPONSIVE --- */
+@media (max-width: 650px) {
+    .bento-grid { grid-template-columns: 1fr; grid-auto-rows: 240px; }
+    .grid-item { grid-column: span 1 !important; grid-row: span 1 !important; border-radius: 25px; }
+    .project-headline { font-size: 2.5rem; }
+}

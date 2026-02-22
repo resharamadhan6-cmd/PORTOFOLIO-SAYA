@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Resha Portfolio</title>
+    <link rel="stylesheet" href="Project.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="mobile-menu" class="mobile-overlay">
+        <div class="overlay-card">
+            <img src="PROFILE HOME/LOGO PORTOFOLIO.png" alt="maskot" class="overlay-logo left">
+            <img src="PROFILE HOME/LOGO PORTOFOLIO.png" alt="maskot" class="overlay-logo right">
+            
+            <ul class="mobile-links">
+                <li><a href="PORTOFOLIO.html">HOME</a></li>
+                <li><a href="Project.html" class="active-link">PROJECT</a></li>
+                <li><a href="About.html">ABOUT ME</a></li>
+                <li><a href="contact.html">CONTACT</a></li>
+            </ul>
+            
+            <div class="close-menu" id="closeBtn">×</div>
+        </div>
+    </div>
+
+    <div class="top-left-logo">
+        <div class="logo-box">
+            <img src="PROFILE HOME/LOGO PORTOFOLIO.png" alt="Logo" class="logo-img">
+        </div>
+    </div>
+
+<div class="menu-btn" id="menuBtn">
+    <span></span>
+    <span></span>
+    <span></span> </div>
+
+    <nav class="floating-nav">
+        <div class="nav-pill">
+            <div class="nav-links-pill">
+                <a href="contact.html">CONTACT</a>
+                <a href="Project.html" class="active">PROJECT</a>
+                <a href="Index.html #about">ABOUT ME</a>
+            </div>
+            <a href="Index.html" class="home-icon">
+                <svg viewBox="0 0 24 24" fill="white" width="20" height="20"><path d="M10 20V14H14V20H19V12H22L12 3L2 12H5V20H10Z"/></svg>
+            </a>
+        </div>
+    </nav>
+
+    <div class="bg-shape shape-circle"></div>
+    <div class="bg-shape shape-square"></div>
+
+    <main class="project-container">
+        <section class="hero-section">
+            <div id="hero-main-wrapper" class="hero-main-wrapper">
+                <div class="hero-card" id="hero-card">
+                    <div class="hero-content" id="hero-content">
+                        <p class="hero-category" id="cat-label">PHOTOGRAPHY & EVENT</p>
+                        <h1 class="hero-title" id="main-title">DOKUMENTASI</h1>
+                        <p class="hero-tagline">Abadikan moment indah menjadi bermakna</p>
+                    </div>
+                </div>
+            </div>
+            <button class="arrow-btn prev" onclick="toggleCategory()">❮</button>
+            <button class="arrow-btn next" onclick="toggleCategory()">❯</button>
+        </section>
+
+        <section class="filter-section">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="search-input" placeholder="PENCARIAN (Tekan Enter)">
+            </div>
+            <div class="filter-group" id="filter-group"></div>
+        </section>
+
+        <div class="project-grid" id="project-grid"></div>
+
+        <button class="view-all" id="view-all-btn">View All Dokumentasi</button>
+
+        <section class="marquee-section">
+            <div class="marquee-content">
+                <img src="PROFILE HOME/LOGO PORTOFOLIO.png">
+                <img src="PROFILE HOME/LOGO PORTOFOLIO.png">
+                <img src="PROFILE HOME/LOGO PORTOFOLIO.png">
+                <img src="PROFILE HOME/LOGO PORTOFOLIO.png">
+                <img src="PROFILE HOME/LOGO PORTOFOLIO.png">
+                <img src="PROFILE HOME/LOGO PORTOFOLIO.png">
+                <img src="PROFILE HOME/LOGO PORTOFOLIO.png">
+                <img src="PROFILE HOME/LOGO PORTOFOLIO.png">
+            </div>
+        </section>
+    </main>
+
+    <script src="Project.js"></script>
+</body>
+</html>
