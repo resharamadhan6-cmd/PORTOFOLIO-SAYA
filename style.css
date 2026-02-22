@@ -1,0 +1,153 @@
+:root {
+    --bg-blue: #63c9e6;
+    --dark-blue: #3a8eb0;
+    --card-blue: #3a8eb0;
+    --accent-blue: #9df1f1;
+    --white: #ffffff;
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Montserrat', sans-serif; 
+}
+
+html { scroll-behavior: smooth; }
+
+body { 
+    background: var(--bg-blue); 
+    color: var(--white); 
+    overflow-x: hidden; 
+}
+
+/* --- ANIMASI REVEAL --- */
+.reveal { 
+    opacity: 0; 
+    transform: translateY(30px); 
+    transition: all 0.8s ease-out; 
+}
+.reveal.active { 
+    opacity: 1; 
+    transform: translateY(0); 
+}
+
+/* --- PAGE TRANSITION --- */
+.page-transition {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background: var(--dark-blue); 
+    z-index: 9999;
+    transform: translateY(100%); 
+    transition: transform 0.6s ease-in-out;
+}
+.page-transition.show { transform: translateY(0); }
+
+/* --- OVERLAY MENU NAVBAR --- */
+.mobile-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.4); z-index: 2000;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden; pointer-events: none; transition: all 0.4s ease;
+}
+.mobile-overlay.active { opacity: 1; visibility: visible; pointer-events: auto; }
+.overlay-card {
+    background: oklch(90.477% 0.0815 195.878); width: 85%; max-width: 450px; padding: 60px 20px;
+    border-radius: 40px; position: relative; text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    transform: scale(0.7) translateY(50px); opacity: 0;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.mobile-overlay.active .overlay-card { transform: scale(1) translateY(0); opacity: 1; }
+.overlay-logo { position: absolute; width: 50px; top: 20px; }
+.overlay-logo.left { left: 20px; }
+.overlay-logo.right { right: 20px; }
+.mobile-links { list-style: none; padding: 0; }
+.mobile-links :hover { color: white;}
+.mobile-links li { margin: 25px 0; opacity: 0; transform: translateY(20px); transition: all 0.4s ease; }
+.mobile-overlay.active .mobile-links li { opacity: 1; transform: translateY(0); }
+.mobile-links a { text-decoration: none; color: #3a8eb0; font-size: 1.8rem; font-weight: 900; transition: 0.3s; }
+.close-menu { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-size: 2.5rem; color: #3a8eb0; cursor: pointer; font-weight: bold; }
+
+/* --- NAVBAR UTAMA --- */
+nav { display: flex; justify-content: space-between; align-items: center; padding: 25px 8%; position: absolute; width: 100%; z-index: 100; }
+.nav-links { display: flex; list-style: none; gap: 40px; }
+.nav-links a { text-decoration: none; color: white; font-weight: 700; font-size: 14px; }
+.menu-toggle { display: block; font-size: 28px; cursor: pointer; color: white; }
+
+/* --- HERO SECTION --- */
+.hero { display: flex; height: 100vh; align-items: center; position: relative; padding: 0 8%; background: var(--bg-blue); overflow: hidden; }
+.shape-1 { position: absolute; bottom: 0; left: 0; width: 180px; height: 90px; background-color: var(--accent-blue); border-top-right-radius: 35px; z-index: 1; }
+.shape-2 { position: absolute; bottom: -30px; left: 140px; width: 90px; height: 90px; background-color: #55abc7; border-radius: 50%; z-index: 1; }
+.hero-image-container { position: absolute; right: 0; top: 0; width: 45%; height: 100%; background: var(--dark-blue); clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 0% 100%); display: flex; align-items: flex-end; justify-content: center; }
+.hero-img { height: 90%; object-fit: cover; }
+.hero-text { width: 55%; z-index: 2; position: relative; }
+.hero-text h1 { font-size: 4.5rem; font-weight: 900; line-height: 1; margin-bottom: 15px; }
+.btn { padding: 14px 28px; border-radius: 12px; text-decoration: none; font-weight: 700; display: inline-block; margin-right: 15px; transition: 0.3s; }
+.btn-light { background: var(--accent-blue); color: var(--dark-blue); }
+.btn-outline { border: 2px solid var(--accent-blue); color: var(--accent-blue); }
+
+/* --- ABOUT SECTION --- */
+.about { padding: 100px 0; text-align: center; background: linear-gradient(to bottom, #63c9e6, #3a8eb0); }
+.about-card { background: var(--card-blue); border-radius: 40px; padding: 50px; max-width: 900px; margin: 0 auto 80px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+.about-flex { display: flex; align-items: center; gap: 40px; text-align: left; }
+.avatar-cartoon { width: 180px; position: relative; z-index: 5; }
+.about-info h2 { font-size: 2.2rem; font-weight: 900; margin-bottom: 15px; }
+
+/* --- SKILL AVATAR LOGIC (NEW) --- */
+.avatar-wrapper { position: relative; display: flex; flex-direction: column; align-items: center; }
+.btn-skill-trigger { margin-top: 15px; background: var(--accent-blue); color: var(--dark-blue); padding: 8px 25px; border-radius: 20px; font-weight: 900; font-size: 0.75rem; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.btn-skill-trigger:hover { transform: scale(1.1); background: var(--white); }
+
+.skill-popups { position: absolute; top: -40px; display: flex; gap: 12px; opacity: 0; visibility: hidden; transform: translateY(20px); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 10; }
+.skill-popups.active { opacity: 1; visibility: visible; transform: translateY(0); }
+
+.skill-item { position: relative; cursor: pointer; transition: 0.3s; }
+.skill-item img { width: 35px; height: 35px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); }
+.skill-item:hover { transform: scale(1.2); }
+
+.skill-val { position: absolute; top: -25px; left: 50%; transform: translateX(-50%) scale(0); background: var(--white); color: var(--dark-blue); padding: 2px 8px; border-radius: 8px; font-size: 9px; font-weight: 900; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+.skill-item.show-val .skill-val { transform: translateX(-50%) scale(1); }
+
+/* PENDIDIKAN & PENGALAMAN */
+.edu-content { max-width: 800px; margin: 0 auto; text-align: left; }
+.year { color: var(--accent-blue); font-weight: 700; }
+.timeline-container { position: relative; max-width: 900px; margin: 50px auto; padding: 20px 0; }
+.vertical-line { position: absolute; left: 50%; transform: translateX(-50%); width: 4px; height: 100%; background: var(--accent-blue); }
+.timeline-item { width: 50%; padding: 20px 40px; position: relative; }
+.timeline-item.left { left: 0; text-align: right; }
+.timeline-item.right { left: 50%; text-align: left; }
+.dot { position: absolute; top: 25px; width: 22px; height: 22px; background: var(--accent-blue); border-radius: 50%; z-index: 2; }
+.left .dot { right: -11px; }
+.right .dot { left: -11px; }
+
+/* SERTIFIKAT */
+.cert-grid { display: flex; justify-content: center; align-items: center; gap: 30px; margin-top: 30px; flex-wrap: wrap; padding: 0 20px; }
+.cert-box { width: 280px; height: 180px; background: var(--accent-blue); border-radius: 25px; overflow: hidden; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+.cert-box img { width: 100%; height: 100%; object-fit: cover; }
+.slideshow { position: relative; }
+.slideshow .slide { position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 1s ease-in-out; }
+.slideshow .slide.active { opacity: 1; position: relative; }
+
+/* MASCOT LOOP */
+.mascot-bar { width: 100%; overflow: hidden; padding: 40px 0; margin-top: 100px; }
+.mascot-track { display: flex; width: fit-content; animation: scroll-left 15s linear infinite; }
+.mascot-track img { width: 45px; margin: 0 30px; flex-shrink: 0; }
+
+@keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-105px * 6)); } }
+.floating { animation: float 3s ease-in-out infinite; }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+@media (max-width: 768px) {
+    .nav-links { display: none; } 
+    .hero { flex-direction: column; text-align: center; padding-top: 100px; }
+    .hero-text { width: 100%; }
+    .hero-image-container { width: 100%; height: 40%; bottom: 0; top: auto; clip-path: none; }
+    .about-flex { flex-direction: column; text-align: center; }
+    .timeline-item { width: 100%; left: 0 !important; text-align: left !important; padding-left: 50px; }
+    .vertical-line { left: 20px; }
+    .dot { left: 9px !important; }
+}
